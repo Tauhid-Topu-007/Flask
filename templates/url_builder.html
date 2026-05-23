@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Builder with Query Strings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f4f7fb;
+        }
+        .builder {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        input, select {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            width: 100%;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .generated-url {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="builder">
+        <h2>🔗 URL Builder with Query Strings</h2>
+        
+        <label>Base Route:</label>
+        <select id="route">
+            <option value="/">Home (/)</option>
+            <option value="/name">Name Display (/name)</option>
+            <option value="/search">Search (/search)</option>
+            <option value="/api/data">API (/api/data)</option>
+        </select>
+
+        <label>Name:</label>
+        <input type="text" id="name" placeholder="Enter name">
+
+        <label>Subject:</label>
+        <input type="text" id="subject" placeholder="Enter subject">
+
+        <label>Age:</label>
+        <input type="number" id="age" placeholder="Enter age">
+
+        <label>City:</label>
+        <input type="text" id="city" placeholder="Enter city">
+
+        <label>Email:</label>
+        <input type="email" id="email" placeholder="Enter email">
+
+        <button onclick="buildURL()">Generate URL</button>
+
+        <div class="generated-url">
+            <strong>Generated URL:</strong><br>
+            <code id="generatedUrl">Click generate to see URL</code>
+        </div>
+
+        <button onclick="openURL()" style="margin-top: 10px; background: #10b981;">Open URL</button>
+        <p style="margin-top: 20px;"><a href="/">← Back to Home</a></p>
+    </div>
+
+    <script>
+        function buildURL() {
+            const route = document.getElementById('route').value;
+            const name = document.getElementById('name').value;
+            const subject = document.getElementById('subject').value;
+            const age = document.getElementById('age').value;
+            const city = document.getElementById('city').value;
+            const email = document.getElementById('email').value;
+
+            let params = [];
+            if (name) params.push(`name=${encodeURIComponent(name)}`);
+            if (subject) params.push(`subject=${encodeURIComponent(subject)}`);
+            if (age) params.push(`age=${age}`);
+            if (city) params.push(`city=${encodeURIComponent(city)}`);
+            if (email) params.push(`email=${encodeURIComponent(email)}`);
+
+            const url = route + (params.length ? '?' + params.join('&') : '');
+            document.getElementById('generatedUrl').textContent = url;
+        }
+
+        function openURL() {
+            const url = document.getElementById('generatedUrl').textContent;
+            if (url && url !== 'Click generate to see URL') {
+                window.location.href = url;
+            } else {
+                alert('Please generate a URL first');
+            }
+        }
+    </script>
+</body>
+</html>

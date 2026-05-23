@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f4f7fb;
+        }
+        .search-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        input, select {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            width: 100%;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .result {
+            background: white;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-box">
+        <h2>🔍 Search Demo</h2>
+        <form method="GET">
+            <input type="text" name="q" placeholder="Enter search term..." value="{{ query }}">
+            <select name="category">
+                <option value="all" {% if category == 'all' %}selected{% endif %}>All Categories</option>
+                <option value="books" {% if category == 'books' %}selected{% endif %}>Books</option>
+                <option value="electronics" {% if category == 'electronics' %}selected{% endif %}>Electronics</option>
+            </select>
+            <select name="sort">
+                <option value="relevance" {% if sort_by == 'relevance' %}selected{% endif %}>Relevance</option>
+                <option value="price_asc" {% if sort_by == 'price_asc' %}selected{% endif %}>Price: Low to High</option>
+                <option value="price_desc" {% if sort_by == 'price_desc' %}selected{% endif %}>Price: High to Low</option>
+            </select>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    {% if query %}
+    <div class="result">
+        <h3>Results for "{{ query }}"</h3>
+        <p>Page: {{ page }} | Category: {{ category }} | Sort: {{ sort_by }}</p>
+        {% if results %}
+            {% for item in results %}
+            <div style="border-bottom: 1px solid #ddd; padding: 10px 0;">
+                <strong>{{ item.title }}</strong><br>
+                Price: ${{ item.price }}
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </div>
+    {% endif %}
+    
+    <p><a href="/">← Back to Home</a></p>
+</body>
+</html>

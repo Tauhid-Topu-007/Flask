@@ -3,16 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello page</title>
-    <!-- <link rel="stylesheet" href='/assets/style2.css'>}" -->
-     <link rel="stylesheet" href="{{ url_for('static', filename='style2.css') }}">
-    <!-- <script src='/static/app.js'></script> -->
+    <title>Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .info-box p {
+            margin: 8px 0;
+            color: #333;
+        }
+        
+        .label {
+            font-weight: bold;
+            color: #1976d2;
+        }
+        
+        .param-box {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .param-box h3 {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .param-list {
+            list-style: none;
+        }
+        
+        .param-list li {
+            padding: 5px 0;
+            font-family: monospace;
+            font-size: 14px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .param-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .param-key {
+            color: #2196f3;
+            font-weight: bold;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 10px 0 0;
+            background: #2196f3;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .btn:hover {
+            background: #1976d2;
+        }
+        
+        .btn-gray {
+            background: #666;
+        }
+        
+        .btn-gray:hover {
+            background: #555;
+        }
+        
+        .example {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 13px;
+        }
+        
+        .example code {
+            display: block;
+            background: white;
+            padding: 8px;
+            margin: 8px 0;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        
+        footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello, World!</h1>
-    <p>This is a simple Flask app.</p>
-    <footer>
-        <p>Copyright &copy; 2024</p>
-    </footer>
+    <div class="container">
+        <h1>👋 Hello, World!</h1>
+        
+        <div class="info-box">
+            <p><span class="label">Name:</span> {{ name }}</p>
+            <p><span class="label">Subject:</span> {{ subject }}</p>
+            {% if age %}
+            <p><span class="label">Age:</span> {{ age }}</p>
+            {% endif %}
+            {% if city %}
+            <p><span class="label">City:</span> {{ city }}</p>
+            {% endif %}
+        </div>
+        
+        {% if all_params %}
+        <div class="param-box">
+            <h3>📋 Query Parameters Received:</h3>
+            <ul class="param-list">
+                {% for key, value in all_params.items() %}
+                <li><span class="param-key">{{ key }}:</span> {{ value }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% else %}
+        <div class="param-box">
+            <h3>ℹ️ No query parameters</h3>
+            <p>Try adding <code>?name=John&subject=Math&age=25&city=NYC</code> to the URL</p>
+        </div>
+        {% endif %}
+        
+        <div class="example">
+            <strong>📌 Examples to try:</strong>
+            <code>/?name=John&subject=Physics&age=22</code>
+            <code>/?name=Sarah&city=London&subject=Art</code>
+            <code>/profile?name=Mike&age=30&city=Boston</code>
+        </div>
+        
+        <div>
+            <a href="/login" class="btn">🔐 Login</a>
+            <a href="/profile?name=Guest" class="btn btn-gray">👤 Profile</a>
+        </div>
+        
+        <footer>
+            <p>Flask Query String Demo</p>
+        </footer>
+    </div>
 </body>
 </html>

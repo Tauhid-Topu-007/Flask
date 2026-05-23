@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Processing Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f4f7fb;
+        }
+        .result {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        pre {
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        .method-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background: #2563eb;
+            color: white;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="result">
+        <h2>Form Processing Result <span class="method-badge">{{ method }}</span></h2>
+        
+        <h3>Query String Parameters (URL):</h3>
+        {% if query_data %}
+            <pre>{{ query_data | tojson(indent=2) }}</pre>
+        {% else %}
+            <p>No query parameters received.</p>
+        {% endif %}
+        
+        <h3>Form Data ({{ method }}):</h3>
+        {% if form_data %}
+            <pre>{{ form_data | tojson(indent=2) }}</pre>
+        {% else %}
+            <p>No form data received.</p>
+        {% endif %}
+        
+        <p><a href="/build-url">← Back to URL Builder</a></p>
+    </div>
+</body>
+</html>

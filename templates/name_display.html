@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name Display with Query Strings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f4f7fb;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { color: #2563eb; }
+        .param { 
+            background: #f0f0f0; 
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 6px;
+        }
+        .hobby-tag {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin: 3px;
+            font-size: 12px;
+        }
+        a { color: #2563eb; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>👤 User Information</h1>
+        <div class="param">
+            <strong>Name:</strong> {{ name }}
+        </div>
+        <div class="param">
+            <strong>Subject:</strong> {{ sub }}
+        </div>
+        {% if age %}
+        <div class="param">
+            <strong>Age:</strong> {{ age }}
+        </div>
+        {% endif %}
+        {% if city %}
+        <div class="param">
+            <strong>City:</strong> {{ city }}
+        </div>
+        {% endif %}
+        {% if hobbies %}
+        <div class="param">
+            <strong>Hobbies:</strong><br>
+            {% for hobby in hobbies %}
+            <span class="hobby-tag">{{ hobby }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <div class="param">
+            <strong>All Parameters:</strong>
+            <pre>{{ all_params }}</pre>
+        </div>
+        
+        <p><a href="/">← Back to Home</a></p>
+    </div>
+</body>
+</html>
