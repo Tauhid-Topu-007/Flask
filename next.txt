@@ -1,4 +1,4 @@
 jinja2
 template inheretance
-message redirect
-deployment
+message redirect -> notification type
+deployment 
